@@ -1,0 +1,34 @@
+    1  docker run -d -it --name rabbit --hostname rabbit -p 30000:5672 -p 30001:15672 rabbitmq:management
+    2  docker
+    3  sudo systemctl start docker
+    4  sudo systemctl status docker
+    5  docker run -d -it --name rabbit --hostname rabbit -p 30000:5672 -p 30001:15672 rabbitmq:management
+    6  docker run -d -it --name es -p 9200:9200 -p 9300:9300 elasticsearch
+    7  docker run -d -it --name es -p 9200:9200 -p 9300:9300 elasticsearch:7.10.1
+    8  docker run -d -it --name kibana --link es:elasticsearch -p 5601:5601 kibana
+    9  docker run -d -it --name kibana --link es:elasticsearch -p 5601:5601 kibana:7.10.1
+   10  docker ps
+   11  docker run -d -it --name es -p 9200:9200 -p 9300:9300 elasticsearch:7.10.1
+   12  docker ps
+   13  docker run -d -it --name kibana --link es:elasticsearch -p 5601:5601 kibana:7.10.1
+   14  docker ps
+   15  docker rm -f es
+   16  docker rm -f kibana
+   17  docker run -d -it --name es -p 9200:9200 -p 9300:9300 elasticsearch:7.10.1
+   18  docker run -d -it --name kibana --link es:elasticsearch -p 5601:5601 kibana:7.10.1
+   19  docker ps
+   20  ls
+   21  ./mvn spring-boot:run
+   22  cd ..
+   23  ls
+   24  cd sample-amqp-logging/
+   25  ls
+   26  mvn clean install
+   27  java --version
+   28  sdk install java 21.0.2-graalce 
+   29  mvn clean install
+   30  mvn spring-boot:run
+   31  docker ps
+   32  history
+   33  docker ps
+   34  history > command_history.txt

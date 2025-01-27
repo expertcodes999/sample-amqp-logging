@@ -1,8 +1,10 @@
 spring:
   application:
     name: api-service-4
+  rabbitmq:
+    host: rabbitmq
 
 server:
   port: ${PORT:1234}
 
-app.amqp.url: localhost:5672
+app.amqp.url: rabbitmq:5672

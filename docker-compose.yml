@@ -1,0 +1,50 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "30000:5672"
+      - "30001:15672"
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  kibana:
+    image: kibana:7.10.1
+    ports:
+      - "5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+  springboot-app:
+    image: dbillion/sample-amqp-logging
+    ports:
+      - "8080:1234"
+    depends_on:
+      - rabbitmq
+      - elasticsearch
+  logstash:
+    image: logstash:7.10.1
+    volumes:
+      - ./config/logstash/pipeline:/usr/share/logstash/pipeline
+    depends_on:
+      - rabbitmq
+      - elasticsearch
